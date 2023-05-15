@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Marketplace | OpenMart</title>
+{% endblock %}
+marketplace
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='marketplace/marketplace.css') }}">
+{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg" style="background:rgb(101, 14, 188)">
+    <a class="navbar-brand" href="{{ url_for('seller') }}"
+        style="color:white; border: 1px solid blue; background: rgb(187, 114, 255)">Seller Profile</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('marketplace') }}" style="color:white"> Marketplace</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('buyer') }}" style="color:white">Buyer Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('logout') }}" style="color:white">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="display-6">All Products</div>
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-md-6 col-sm-12">
+            {% for product in all_products %}
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Product: {{product.pname}}</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Product Type: {{product.ptype}}</li>
+                        <li class="list-group-item">Available Quantity: {{product.qty}}</li>
+                        <li class="list-group-item">Price per Unit: {{product.price}}</li>
+                        <li class="list-group-item">Vendor: {{product.vendor}}</li>
+                    </ul>
+                </div>
+                <a href="{{ url_for('add_product', product_id=product._id) }}" class="btn btn-primary">ADD TO CART</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='marketplace/marketplace.js') }}"></script>
+{% endblock %}

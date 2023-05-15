@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Login | OpenMart</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='login/login.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row min-vh-100 d-flex justify-content-center align-items-center">
+        <div class="col-sm-8 col-md-6 col-lg-8 w-50">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">
+                        LOGIN FORM
+                    </h3>
+                    {{ message }}
+                    <form method="post" onsubmit="return validate(event)">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="form-control" name="email">
+                            <p class="form-text" name="email-error"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="pass" class="form-label">Password:</label>
+                            <input type="password" class="form-control" name="pass">
+                            <p class="form-text" name="pass-error"></p>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-3 col-sm-12">
+                                    <button type="submit" class="btn btn-primary btn-block w-100" name="login">LOGIN</button>
+                                </div>
+                                <div class="col-lg-9 col-sm-12">
+                                    <a class="btn btn-secondary btn-block w-100" href="{{url_for('signup')}}">CREATE ACCOUNT</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='login/login.js') }}"></script>
+{% endblock %}

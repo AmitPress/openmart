@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Buyer Profile | OpenMart</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='sellerprofile/sellerprofile.css') }}">
+{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg" style="background:rgb(101, 14, 188)">
+    <a class="navbar-brand" href="{{ url_for('seller') }}"
+        style="color:white; border: 1px solid blue; background: rgb(187, 114, 255)">Seller Profile</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('marketplace') }}" style="color:white"> Marketplace</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('buyer') }}" style="color:white">Buyer Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('logout') }}" style="color:white">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-6 col-sm-10 col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <div class="display-4">Add Product</div>
+                    </div>
+                    <form method="post" name="product-form" onsubmit="return submitform(event)">
+                        <div class="form-group">
+                            <label for="pname" class="form-label">Product Name:</label>
+                            <input type="text" name="pname" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="ptype" class="form-label">Product Type:</label>
+                            <input type="text" name="ptype" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="qty" class="form-label">Available Quanty:</label>
+                            <input type="number" name="qty" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="price" class="form-label">Price (per unit):</label>
+                            <input type="number" name="price" class="form-control">
+                        </div>
+                        <div class="form-group mt-3">
+                            <button class="btn btn-primary form-control" type="submit">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="display-4">My Products</div>
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-md-6 col-sm-12">
+            {% for product in all_products %}
+            <div class="card mt-3">
+                <div class="list-group">
+                    <div class="list-group-item">Product Name: {{product.pname}}</div>
+                    <div class="list-group-item">Product Type: {{product.ptype}}</div>
+                    <div class="list-group-item">Available Quantity: {{product.qty}}</div>
+                    <div class="list-group-item">Price per Unit: {{product.price}}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='sellerprofile/sellerprofile.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Signup | OpenMart</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='login/login.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row min-vh-100 d-flex justify-content-center align-items-center">
+        <div class="col-sm-8 col-md-6 col-lg-8 w-50">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">
+                        SIGNUP FORM
+                    </h3>
+                    {{ message }}
+                    <form method="post" onsubmit="return validate(event)" name="signup-form">
+                        <div class="form-group">
+                            <label for="firstname" class="form-label">First Name:</label>
+                            <input type="text" class="form-control" name="firstname">
+                            <p class="form-text" name="firstname-error"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="form-label">Last Name:</label>
+                            <input type="text" class="form-control" name="lastname">
+                            <p class="form-text" name="lastname-error"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="form-label">User Name:</label>
+                            <input type="text" class="form-control" name="username" readonly>
+                            <p class="form-text" name="username-error"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="form-control" name="email">
+                            <p class="form-text" name="email-error"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="pass" class="form-label">Password:</label>
+                            <input type="password" class="form-control" name="pass">
+                            <p class="form-text" name="pass-error"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmpass" class="form-label">Confirm Password:</label>
+                            <input type="password" class="form-control" name="confirmpass">
+                            <p class="form-text" name="confirmpass-error"></p>
+                        </div>
+                        <div class="container">
+                            <div class="row d-flex justify-content-end">
+                                <div class="col-lg-4 col-sm-12">
+                                    <button class="btn btn-primary btn-block w-100" type="submit" name="signup">SIGNUP</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='signup/signup.js') }}"></script>
+{% endblock %}
