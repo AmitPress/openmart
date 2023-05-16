@@ -37,7 +37,7 @@
             {% for product, count in real_products %}
             <div class="card mt-3">
                 <div class="card-body">
-                    <h5 class="card-title">Product: {{product.pname}} Took: {{count}}</h5>
+                    <h5 class="card-title">Product: {{product.pname}} Added: {{count}}</h5>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Product Type: {{product.ptype}}</li>
                         <li class="list-group-item">Available Quantity: {{product.qty}}</li>
@@ -48,6 +48,9 @@
                 <a href="{{ url_for('remove_product', product_id=product._id) }}" class="btn btn-primary">REMOVE FROM CART</a>
             </div>
             {% endfor %}
+            <div class="card mt-3">
+                <h5 class="card-title">Total Price: {{ total_price }}</h5>
+            </div>
         </div>
     </div>
 </div>

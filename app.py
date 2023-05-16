@@ -95,6 +95,10 @@ def buyer():
                     real_products = []
                     for id in set(items):
                         real_products.append((products.find_one({"_id": ObjectId(id)}), count[id]))
+            total_price = 0
+            if real_products:
+                for product, count in real_products:
+                    total_price += int(product['price']) * count
             return render_template('buyerprofile.html', **locals())
         else:
             return redirect('/login')
