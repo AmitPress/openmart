@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, session
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from bson import ObjectId
+from flask_cors import CORS
 #### DATABASE ####
 # client = MongoClient('localhost', 27017)
 # db = client['openmart']
@@ -29,6 +30,7 @@ mailbox     = db['mailbox'] # collection
 #### APP ####
 app = Flask(__name__, static_url_path='/static')
 app.secret_key = "amit"
+CORS(app)
 #### ROUTES ####
 @app.route('/', methods=["GET"])
 def root():

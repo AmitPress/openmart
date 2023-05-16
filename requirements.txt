@@ -1,3 +1,4 @@
 flask
 pymongo
 waitress
+flask_cors
