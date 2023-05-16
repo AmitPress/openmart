@@ -152,4 +152,5 @@ def remove_product(product_id):
         carts.update_one({'_id': cart['_id']}, {'$set': {'products': p}})
     return redirect('/buyerprofile')
 if __name__=="__main__":
-    app.run(host="0.0.0.0", debug=False)
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=8080)
