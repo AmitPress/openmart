@@ -74,7 +74,7 @@ def signup():
         username = request.form["username"]
         email = request.form["email"]
         if profiles.find_one({"email": email}):
-            return redirect("/signup", message="Email already exists")
+            return render_template("signup.html", message="Email already exists")
         password = request.form["pass"]
         profile = profiles.insert_one({"username": username, "email": email, "password": password})
         cart = carts.insert_one({"profile": profile.inserted_id})
@@ -83,24 +83,31 @@ def signup():
 
 @app.route('/buyerprofile', methods=["GET"])
 def buyer():
-    buyer = profiles.find_one({"_id": ObjectId(session["profile_id"])})
-    cart = carts.find_one({'profile': ObjectId(session['profile_id'])})
-    if cart:
-        items = cart.get('products')
-        if items:
-            total = len(items)
-            count = {id: items.count(id) for id in set(items)}
-            real_products = []
-            for id in set(items):
-                real_products.append((products.find_one({"_id": ObjectId(id)}), count[id]))
-    return render_template('buyerprofile.html', **locals())
+    if request.method == "GET":
+        if "logged_in" in session and session["logged_in"] == True:
+            buyer = profiles.find_one({"_id": ObjectId(session["profile_id"])})
+            cart = carts.find_one({'profile': ObjectId(session['profile_id'])})
+            if cart:
+                items = cart.get('products')
+                if items:
+                    total = len(items)
+                    count = {id: items.count(id) for id in set(items)}
+                    real_products = []
+                    for id in set(items):
+                        real_products.append((products.find_one({"_id": ObjectId(id)}), count[id]))
+            return render_template('buyerprofile.html', **locals())
+        else:
+            return redirect('/login')
 
 @app.route('/sellerprofile', methods=["GET", "POST"])
 def seller():
     if request.method == "GET":
-        profile = profiles.find_one({"_id": ObjectId(session['profile_id'])})
-        all_products = products.find({'vendor_id': session['profile_id']})
-        return render_template('sellerprofile.html', **locals())
+        if "logged_in" in session and session["logged_in"] == True:
+            profile = profiles.find_one({"_id": ObjectId(session['profile_id'])})
+            all_products = products.find({'vendor_id': session['profile_id']})
+            return render_template('sellerprofile.html', **locals())
+        else:
+            return redirect('/login')
     if request.method == "POST":
         profile = profiles.find_one({"_id": ObjectId(session['profile_id'])})
         pname = request.form['pname']
@@ -117,8 +124,11 @@ def seller():
 @app.route('/marketplace', methods=["GET"])
 def marketplace():
     if request.method == "GET":
-        all_products = products.find()
-        return render_template('marketplace.html', **locals())
+        if("logged_in" in session and session["logged_in"] == True):
+            all_products = products.find()
+            return render_template('marketplace.html', **locals())
+        else:
+            return redirect('/login')
 
 # @app.route('/add_product/<string:product_id>', methods=["GET"])
 # def add_product(product_id):
