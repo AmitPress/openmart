@@ -33,7 +33,7 @@ app.secret_key = "amit"
 CORS(app)
 #### ROUTES ####
 @app.route('/', methods=["GET"])
-def root():
+def index():
     if("logged_in" in session and session["logged_in"] == True):
         return redirect("/buyerprofile")
     else:
@@ -154,5 +154,6 @@ def remove_product(product_id):
         carts.update_one({'_id': cart['_id']}, {'$set': {'products': p}})
     return redirect('/buyerprofile')
 if __name__=="__main__":
-    from waitress import serve
-    serve(app, host="0.0.0.0", port=8080)
+    # from waitress import serve
+    # serve(app, host="0.0.0.0", port=8080)
+    app.run()
