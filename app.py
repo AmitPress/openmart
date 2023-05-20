@@ -30,7 +30,7 @@ mailbox     = db['mailbox'] # collection
 #### APP ####
 app = Flask(__name__, static_url_path='/static')
 app.secret_key = "amit"
-CORS(app)
+
 #### ROUTES ####
 @app.route('/', methods=["GET"])
 def index():
@@ -87,12 +87,12 @@ def buyer():
         if "logged_in" in session and session["logged_in"] == True:
             buyer = profiles.find_one({"_id": ObjectId(session["profile_id"])})
             cart = carts.find_one({'profile': ObjectId(session['profile_id'])})
+            real_products = []
             if cart:
                 items = cart.get('products')
                 if items:
                     total = len(items)
                     count = {id: items.count(id) for id in set(items)}
-                    real_products = []
                     for id in set(items):
                         real_products.append((products.find_one({"_id": ObjectId(id)}), count[id]))
             total_price = 0
